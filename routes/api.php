@@ -18,8 +18,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Home
+// All rental items
 Route::get('/rentals', [RentalController::class, 'index']);
 
 // Query Rental data
-Route::get('/{name?}/{bedroom?}/{bathroom?}/{storey?}/{garage?}/{startPrice?}/{endPrice?}', [RentalController::class, 'search']);
+Route::get('/', [RentalController::class, 'search']);

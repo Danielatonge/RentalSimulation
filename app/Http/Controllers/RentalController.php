@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Rental;
+use Illuminate\Support\Facades\DB;
 
 class RentalController extends Controller
 {
@@ -20,20 +21,53 @@ class RentalController extends Controller
     /**
      * Query rental for the specified resource.
      *
-     * @param  string $name
-     * @param int $bedroom
-     * @param int $bathroom
-     * @param int $storey
-     * @param int $garage
-     * @param int $startPrice
-     * @param  int  $endPrice
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function search(string $name=null, int $bedroom=null, int $bathroom=null,
-                           int    $storey=null, int $garage=null, int $startPrice=null,
-                           int $endPrice=null)
+    public function search(Request $request)
     {
-        //
+        $query = array();
+
+        $name = $request->query('name');
+        if (!is_null($name)) {
+            array_push($query, ['name', 'like', '%' . $name . '%']);
+        }
+
+        $bedrooms = $request->query('bedrooms');
+        if (!is_null($bedrooms)) {
+            array_push($query, ['bedrooms', '=', $bedrooms]);
+        }
+
+        $bathrooms = $request->query('bathrooms');
+        if (!is_null($bathrooms)) {
+            array_push($query, ['bathrooms', '=', $bathrooms]);
+        }
+
+        $storeys = $request->query('storeys');
+        if (!is_null($storeys)) {
+            array_push($query, ['storeys', '=', $storeys]);
+        }
+
+        $garages = $request->query('garages');
+        if (!is_null($garages)) {
+            array_push($query, ['garages', '=', $garages]);
+        }
+
+        $startPrice = $request->query('startPrice');
+        if (!is_null($startPrice)) {
+            array_push($query, ['price', '>=', $startPrice]);
+        }
+
+        $endPrice = $request->query('endPrice');
+        if (!is_null($endPrice)) {
+            array_push($query, ['price', '<=', $endPrice]);
+        }
+//        echo json_encode(array_values($query));
+
+        $findRental = DB::table('rentals')
+            ->where($query)->get();
+
+        return $findRental;
     }
 
     /**

@@ -18,6 +18,7 @@ class CreateRentalsTable extends Migration
             $table->string('name');
             $table->integer('price');
             $table->integer('bedrooms');
+            $table->integer('bathrooms');
             $table->integer('storeys');
             $table->integer('garages');
             $table->timestamps();
