@@ -2,14 +2,14 @@
     <div>
         <el-row :gutter="20">
             <el-col :xs="12" :sm="12" :md="16">
-                <div class="grid-content bg-purple">
+                <div class="grid-content">
                     <el-input placeholder="Enter name" v-model="name" @change="fetchGivenParams">
                         <template slot="prepend">Search</template>
                     </el-input>
                 </div>
             </el-col>
             <el-col :xs="6" :sm="6" :md="4">
-                <div class="grid-content bg-purple">
+                <div class="grid-content">
                     <el-input
                         @change="fetchGivenParams"
                         type="number"
@@ -137,8 +137,17 @@ export default {
 </script>
 
 <style>
-.center {
-    margin: 0 50px !important;
+.el-row {
+    margin-bottom: 20px;
+}
+
+.el-col {
+    border-radius: 4px;
+}
+
+.grid-content {
+    border-radius: 4px;
+    min-height: 36px;
 }
 
 .input-label {

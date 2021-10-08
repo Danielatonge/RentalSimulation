@@ -27,7 +27,6 @@ class RentalController extends Controller
     public function search(Request $request)
     {
         $query = $this->getQuery($request);
-//        echo print_r($query, true);
         $findRental = DB::table('rentals')
             ->where($query)->get();
 

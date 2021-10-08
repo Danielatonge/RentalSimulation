@@ -44,11 +44,14 @@
 <script>
 export default {
     name: "TableView",
-    props: ["items", "loading"],
+    props: {
+        items: Array,
+        loading: {
+            type: Boolean,
+            required: true
+        }
+    },
 
-    data() {
-        return {}
-    }
 }
 </script>
 
