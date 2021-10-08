@@ -26,48 +26,58 @@ class RentalController extends Controller
      */
     public function search(Request $request)
     {
-        $query = array();
+        $query = $this->getQuery($request);
+//        echo print_r($query, true);
+        $findRental = DB::table('rentals')
+            ->where($query)->get();
 
+        return response($findRental)->header('Content-Type', 'application/json');
+    }
+
+    /**
+     * Builds query from request.
+     *
+     * @param Request $request
+     * @return array
+     */
+    private function getQuery(Request $request): array
+    {
+        $query = array();
         $name = $request->query('name');
-        if (!is_null($name)) {
+        if (!is_null($name) && $name != 'null' && $name != '') {
             array_push($query, ['name', 'like', '%' . $name . '%']);
         }
 
         $bedrooms = $request->query('bedrooms');
-        if (!is_null($bedrooms)) {
+        if (!is_null($bedrooms) && $bedrooms != 'null' && $bedrooms != '') {
             array_push($query, ['bedrooms', '=', $bedrooms]);
         }
 
         $bathrooms = $request->query('bathrooms');
-        if (!is_null($bathrooms)) {
+        if (!is_null($bathrooms) && $bathrooms != 'null' && $bathrooms != '') {
             array_push($query, ['bathrooms', '=', $bathrooms]);
         }
 
         $storeys = $request->query('storeys');
-        if (!is_null($storeys)) {
+        if (!is_null($storeys) && $storeys != 'null' && $storeys != '') {
             array_push($query, ['storeys', '=', $storeys]);
         }
 
         $garages = $request->query('garages');
-        if (!is_null($garages)) {
+        if (!is_null($garages) && $garages != 'null' && $garages != '') {
             array_push($query, ['garages', '=', $garages]);
         }
 
         $startPrice = $request->query('startPrice');
-        if (!is_null($startPrice)) {
+        if (!is_null($startPrice) && $startPrice != 'null' && $startPrice != '') {
             array_push($query, ['price', '>=', $startPrice]);
         }
 
         $endPrice = $request->query('endPrice');
-        if (!is_null($endPrice)) {
+        if (!is_null($endPrice) && $endPrice != 'null' && $endPrice != '') {
             array_push($query, ['price', '<=', $endPrice]);
         }
-//        echo json_encode(array_values($query));
-
-        $findRental = DB::table('rentals')
-            ->where($query)->get();
-
-        return $findRental;
+        return $query;
     }
 
     /**
