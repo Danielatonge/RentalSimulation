@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\RentalController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,6 +18,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Home
+Route::get('/rentals', [RentalController::class, 'index']);
 
-// Query data
-Route::get('/{name?}/{bedroom?}/{bathroom?}/{storey?}/{garage?}/{startPrice?}/{endPrice?}', 'RentalController@index');
+// Query Rental data
+Route::get('/{name?}/{bedroom?}/{bathroom?}/{storey?}/{garage?}/{startPrice?}/{endPrice?}', [RentalController::class, 'search']);
