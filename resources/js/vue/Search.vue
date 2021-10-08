@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-row :gutter="20">
-            <el-col :xs="12" :sm="12" :md="8">
+            <el-col :xs="12" :sm="12" :md="16">
                 <div class="grid-content bg-purple">
                     <el-input placeholder="Enter name" v-model="name" @change="fetchGivenParams">
                         <template slot="prepend">Search</template>
@@ -79,8 +79,8 @@
             </el-col>
 
         </el-row>
-        <el-row>
-            <el-col :xs="24" :md="16">
+        <el-row class="result-section">
+            <el-col :xs="24" :md="24">
                 <TableView :items="tableData" :loading="loading"/>
             </el-col>
         </el-row>
@@ -148,5 +148,9 @@ export default {
 
 .grid-content {
     margin-bottom: 12px;
+}
+
+.result-section {
+    margin-top: 50px;
 }
 </style>

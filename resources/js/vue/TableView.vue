@@ -3,12 +3,12 @@
         v-if="items.length"
         v-loading="loading"
         :data="items"
-        height="300"
+        height="500"
         style="width: 100%">
         <el-table-column
             prop="name"
             label="Name"
-            width="300">
+            width="250">
         </el-table-column>
         <el-table-column
             prop="price"
